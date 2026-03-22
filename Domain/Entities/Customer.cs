@@ -8,5 +8,9 @@ namespace StoreSalesSystem.Domain.Entities
 {
     internal class Customer
     {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+
+        public ICollection<Sale> Sales { get; set; } = new List<Sale>();
     }
 }

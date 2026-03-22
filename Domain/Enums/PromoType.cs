@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace StoreSalesSystem.Domain.Enums
 {
-    internal class Class4
+    public enum PromoType
     {
+        Percentage,
+        FixedAmount
     }
 }
