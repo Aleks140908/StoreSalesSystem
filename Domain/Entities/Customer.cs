@@ -15,7 +15,8 @@ namespace StoreSalesSystem.Domain.Entities
         public Customer(string name, ICollection<Sale>? sales = null)
         {
             Name = name;
-            Sales = sales ?? new List<Sale>();
+            Sales = sales;
+            new List<Sale>();
         }
     }
 }
