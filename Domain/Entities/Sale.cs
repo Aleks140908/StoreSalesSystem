@@ -25,5 +25,24 @@ namespace StoreSalesSystem.Domain.Entities
 
         public int? CustomerId { get; set; }
         public Customer? Customer { get; set; }
+        public Sale()
+        {
+            
+            Items = new List<SaleItem>();
+            CreatedAt = DateTime.Now;
+        }
+
+        public Sale(decimal subtotal, decimal discountAmount, decimal total, PaymentType paymentType, int? promoCodeId = null, int? customerId = null)
+        {
+            Subtotal = subtotal;
+            DiscountAmount = discountAmount;
+            Total = total;
+            PaymentType = paymentType;
+            PromoCodeId = promoCodeId;
+            CustomerId = customerId;
+
+            Items = new List<SaleItem>();
+            CreatedAt = DateTime.Now;
+        }
     }
 }

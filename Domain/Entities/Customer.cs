@@ -12,5 +12,10 @@ namespace StoreSalesSystem.Domain.Entities
         public string Name { get; set; } = string.Empty;
 
         public ICollection<Sale> Sales { get; set; } = new List<Sale>();
+        public Customer(string name, ICollection<Sale>? sales = null)
+        {
+            Name = name;
+            Sales = sales ?? new List<Sale>();
+        }
     }
 }
