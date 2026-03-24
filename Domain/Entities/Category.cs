@@ -12,7 +12,13 @@ namespace StoreSalesSystem.Domain.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
+        public Category(int id, string name)
+        {
+            if (id < 0) throw new ArgumentException("Id must be a positive number");
+            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("You need to enter the category's name!");
 
-        public ICollection<Product> Products { get; set; } = new List<Product>();
+            Id = id;
+            Name = name;
+        }
     }
 }

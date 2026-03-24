@@ -8,25 +8,44 @@ namespace StoreSalesSystem.Domain.Entities
 {
    public class Product
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
+        public string Code { get; private set; } = string.Empty;
+        public string Name { get; private set; } = string.Empty;
+        public decimal Price { get; private set; }
+        public int CategoryId { get; private set; }
+        public int StockQuantity { get; private set; }
+        public bool IsActive { get; private set; }
+        public Product(int id, string code, string name, decimal price, int categoryId, int stockQuantity = 0)
+        {
+            if (id < 0) throw new ArgumentException("Id must be a positive number!");
+            if (string.IsNullOrWhiteSpace(code)) throw new ArgumentException("You need to enter the product's code!");
+            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("You need to enter the produc's name!");
+            if (price < 0) throw new ArgumentException("Price must be a positive number!");
+            if (categoryId <= 0) throw new ArgumentException("CategoryId mustn't be negative nor 0!");
+            if (stockQuantity < 0) throw new ArgumentException("Stock cannot be negative!");
 
-        public string Code { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
-
-        public string Brand { get; set; } = string.Empty;
-        public string Color { get; set; } = string.Empty;
-        public string Size { get; set; } = string.Empty;
-        public string Gender { get; set; } = "Unisex";
-
-        public decimal Price { get; set; }
-        public bool IsActive { get; set; } = true;
-
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
-
-
-        public int StockQuantity { get; set; }
-
-        
+            Id = id;
+            Code = code;
+            Name = name;
+            Price = price;
+            CategoryId = categoryId;
+            StockQuantity = stockQuantity;
+            IsActive = true;
+        }
+        public void IncreaseStock(int amount)//увеличава бройката
+        {
+            if (amount <= 0) throw new ArgumentException("Amount must be a positive numbr!");
+            StockQuantity += amount;
+        }
+        public void DecreaseStock(int amount)//намалява бройката
+        {
+            if (amount <= 0) throw new ArgumentException("Amount must be a positive numbr!");
+            if (StockQuantity < amount) throw new ArgumentException("Not enough stock!");
+            StockQuantity -= amount;
+        }
+        public void Deactivate()//деактивира продукта от системата
+        {
+            IsActive = false;
+        }
     }
 }
