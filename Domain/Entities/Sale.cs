@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StoreSalesSystem.Domain.Entities
 {
-    internal class Sale
+   public class Sale
     {
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoreSalesSystem.Domain.Entities
 {
-    internal class SaleItem
+    public class SaleItem
     {
         public int Id { get; set; }
 

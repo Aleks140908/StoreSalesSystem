@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoreSalesSystem.Domain.Entities
 {
-    internal class Customer
+    public class Customer
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

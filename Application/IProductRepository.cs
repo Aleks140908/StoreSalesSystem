@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoreSalesSystem.Application
 {
-    internal class IProductRepository
+    public class IProductRepository
     {
     }
 }
