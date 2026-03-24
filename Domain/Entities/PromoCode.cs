@@ -19,5 +19,7 @@ namespace StoreSalesSystem.Domain.Entities
         public DateTime ValidUntil { get; set; }
 
         public bool IsActive { get; set; } = true;
+
+      
     }
 }

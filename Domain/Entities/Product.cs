@@ -26,5 +26,7 @@ namespace StoreSalesSystem.Domain.Entities
 
         
         public int StockQuantity { get; set; }
+
+        
     }
 }
