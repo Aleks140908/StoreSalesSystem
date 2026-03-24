@@ -20,6 +20,14 @@ namespace StoreSalesSystem.Domain.Entities
 
         public bool IsActive { get; set; } = true;
 
-      
+        public PromoCode(string code, PromoType type, decimal value, DateTime validFrom, DateTime validUntil)
+        {
+            Code = code;
+            Type = type;
+            Value = value;
+            ValidFrom = validFrom;
+            ValidUntil = validUntil;
+        }
+
     }
 }
