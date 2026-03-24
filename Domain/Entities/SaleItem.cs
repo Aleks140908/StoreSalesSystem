@@ -19,5 +19,23 @@ namespace StoreSalesSystem.Domain.Entities
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal LineTotal { get; set; }
+
+        public SaleItem(int productId, int quantity, decimal unitPrice)
+        {
+            ProductId = productId;
+            Quantity = quantity;
+            UnitPrice = unitPrice;
+            LineTotal = quantity * unitPrice;
+        }
+
+       
+        public SaleItem(int saleId, int productId, int quantity, decimal unitPrice)
+        {
+            SaleId = saleId;
+            ProductId = productId;
+            Quantity = quantity;
+            UnitPrice = unitPrice;
+            LineTotal = quantity * unitPrice;
+        }
     }
 }
