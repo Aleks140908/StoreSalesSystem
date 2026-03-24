@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StoreSalesSystem.Domain.Entities
 {
-    internal class PromoCode
+    public class PromoCode
     {
         public int Id { get; set; }
         public string Code { get; set; } = string.Empty;
@@ -19,5 +19,7 @@ namespace StoreSalesSystem.Domain.Entities
         public DateTime ValidUntil { get; set; }
 
         public bool IsActive { get; set; } = true;
+
+      
     }
 }
