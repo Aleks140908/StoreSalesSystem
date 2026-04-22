@@ -8,16 +8,14 @@ using System.Text.Json;
 
 namespace StoreSalesSystem.Domain.Entities
 {
-    public class Category : ICategoryRepository
+    public class Category
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public Category(int id, string name)
+        public Category() { }
+        public Category(string name)
         {
-            if (id < 0) throw new ArgumentException("Id must be a positive number");
-            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("You need to enter the category's name!");
-
-            Id = id;
+            if (string.IsNullOrWhiteSpace(name))throw new ArgumentException("You need to enter the category's name!");
             Name = name;
         }
     }

@@ -7,24 +7,25 @@ using System.Threading.Tasks;
 namespace StoreSalesSystem.Domain.Entities
 {
    public class Product
-    {
-        public int Id { get; private set; }
+   {
+        public int Id { get; set; }
         public string Code { get; private set; } = string.Empty;
         public string Name { get; private set; } = string.Empty;
         public decimal Price { get; private set; }
         public int CategoryId { get; private set; }
         public int StockQuantity { get; private set; }
         public bool IsActive { get; private set; }
-        public Product(int id, string code, string name, decimal price, int categoryId, int stockQuantity = 0)
+        public Product() { }
+        public Product(string code, string name, decimal price, int categoryId, int stockQuantity = 0)
         {
-            if (id < 0) throw new ArgumentException("Id must be a positive number!");
+           
             if (string.IsNullOrWhiteSpace(code)) throw new ArgumentException("You need to enter the product's code!");
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("You need to enter the produc's name!");
             if (price < 0) throw new ArgumentException("Price must be a positive number!");
             if (categoryId <= 0) throw new ArgumentException("CategoryId mustn't be negative nor 0!");
             if (stockQuantity < 0) throw new ArgumentException("Stock cannot be negative!");
 
-            Id = id;
+
             Code = code;
             Name = name;
             Price = price;
@@ -47,5 +48,5 @@ namespace StoreSalesSystem.Domain.Entities
         {
             IsActive = false;
         }
-    }
+   }
 }
