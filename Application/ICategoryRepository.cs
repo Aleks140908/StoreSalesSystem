@@ -12,8 +12,8 @@ namespace StoreSalesSystem.Application
         Category Add(Category category);
         Category? GetById(int id);
         IEnumerable<Category> GetAll();
-        void Update (Category category);
-        void Delete (int id);
-       
+        void Update(Category category);
+        void Delete(int id);
+
     }
 }
