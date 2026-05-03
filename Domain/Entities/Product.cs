@@ -13,7 +13,7 @@ namespace StoreSalesSystem.Domain.Entities
         public string Name { get; private set; } = string.Empty;
         public decimal Price { get; private set; }
         public int CategoryId { get; private set; }
-        public int StockQuantity { get; private set; }
+        public int StockQuantity { get; set; }
         public bool IsActive { get; private set; }
         public Product() { }
         public Product(string code, string name, decimal price, int categoryId, int stockQuantity = 0)

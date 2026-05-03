@@ -30,5 +30,22 @@ namespace StoreSalesSystem.Infrastructure
         {
             return storage.Sales.FirstOrDefault(s => s.Id == id);
         }
+
+        public void Update(Sale sale)
+        {
+            var existingSale = storage.Sales.FirstOrDefault(s => s.Id == sale.Id);
+            if (existingSale == null) return;
+
+            existingSale.Date = sale.Date;
+            existingSale.Subtotal = sale.Subtotal;
+            existingSale.DiscountAmount = sale.DiscountAmount;
+            existingSale.Total = sale.Total;
+            existingSale.PaymentType = sale.PaymentType;
+            existingSale.PromoCodeId = sale.PromoCodeId;
+            existingSale.CustomerId = sale.CustomerId;
+            existingSale.IsCompleted = sale.IsCompleted;
+
+            storage.Save();
+        }
     }
 }

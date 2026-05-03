@@ -1,5 +1,6 @@
 ﻿using StoreSalesSystem.Application;
 using StoreSalesSystem.Application.Interfaces;
+using StoreSalesSystem.Application.Services;
 using StoreSalesSystem.ConsoleUI;
 using StoreSalesSystem.Domain.Entities;
 using StoreSalesSystem.Infrastructure;
@@ -11,23 +12,23 @@ namespace StoreSalesSystem
     {
         static void Main(string[] args)
         {
-            
-            var storage = new FileStorage("sale.json");
 
-            
-            IProductRepository productRepo = new FileProductRepository(storage);
-            ICategoryRepository categoryRepo = new FileCategoryRepository(storage);
-            ICustomerRepository customerRepo = new FileCustomerRepository(storage);
-            ISaleRepository saleRepo = new FileSaleRepository(storage);
-            IPromoCodeRepository promoRepo = new FilePromoRepository(storage);
+            var productRepo = new FileProductRepository();
+            var categoryRepo = new FileCategoryRepository();
+            var customerRepo = new FileCustomerRepository();
+            var saleRepo = new FileSaleRepository();
+            var saleItemRepo = new FileSaleItemRepository();
+            var promoRepo = new FilePromoCodeRepository();
 
-            
-            var service = new SaleService(productRepo, categoryRepo, customerRepo, saleRepo, promoRepo);
+            // Services
+            var productService = new ProductService(productRepo, categoryRepo);
+            var categoryService = new CategoryService(categoryRepo, productRepo);
+            var promoService = new PromoService(promoRepo);
+            var saleService = new SaleService(productRepo, categoryRepo, customerRepo, saleRepo, saleItemRepo, promoRepo);
 
-            
-            var ui = new SaleUI(service);
+            // UI
+            var ui = new SaleUI(productService, categoryService, promoService, saleService);
 
-            
             ui.Run();
         }
     }

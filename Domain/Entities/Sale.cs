@@ -10,7 +10,7 @@ namespace StoreSalesSystem.Domain.Entities
    public class Sale
    {
         public int Id { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Now;
 
         public ICollection<SaleItem> Items { get; set; } = new List<SaleItem>();
 
@@ -25,10 +25,12 @@ namespace StoreSalesSystem.Domain.Entities
 
         public int? CustomerId { get; set; }
         public Customer? Customer { get; set; }
+        public bool IsCompleted { get; set; }
+
         public Sale()
         {
             Items = new List<SaleItem>();
-            CreatedAt = DateTime.Now;
+            Date = DateTime.Now;
         }
 
         public Sale(decimal subtotal, decimal discountAmount, decimal total, PaymentType paymentType, int? promoCodeId = null, int? customerId = null)
@@ -41,7 +43,7 @@ namespace StoreSalesSystem.Domain.Entities
             CustomerId = customerId;
 
             Items = new List<SaleItem>();
-            CreatedAt = DateTime.Now;
+            Date = DateTime.Now;
         }
    }
 }

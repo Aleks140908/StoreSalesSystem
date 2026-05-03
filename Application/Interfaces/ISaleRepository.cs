@@ -12,5 +12,6 @@ namespace StoreSalesSystem.Application.Interfaces
         Sale Add(Sale sale);
         Sale? GetById(int id);
         IEnumerable<Sale> GetAll();
+        void Update(Sale sale);
     }
 }
