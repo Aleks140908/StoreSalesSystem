@@ -1,4 +1,5 @@
 ﻿using StoreSalesSystem.Application;
+using StoreSalesSystem.Application.Interfaces;
 using StoreSalesSystem.ConsoleUI;
 using StoreSalesSystem.Domain.Entities;
 using StoreSalesSystem.Infrastructure;

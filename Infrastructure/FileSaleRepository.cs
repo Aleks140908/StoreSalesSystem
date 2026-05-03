@@ -1,4 +1,4 @@
-﻿using StoreSalesSystem.Application;
+﻿using StoreSalesSystem.Application.Interfaces;
 using StoreSalesSystem.Domain.Entities;
 
 namespace StoreSalesSystem.Infrastructure

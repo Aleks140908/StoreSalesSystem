@@ -1,4 +1,4 @@
-﻿using StoreSalesSystem.Application;
+﻿using StoreSalesSystem.Application.Interfaces;
 using StoreSalesSystem.Domain.Entities;
 using System;
 using System.Collections.Generic;

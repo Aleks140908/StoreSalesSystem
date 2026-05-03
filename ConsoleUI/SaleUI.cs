@@ -1,4 +1,4 @@
-﻿using StoreSalesSystem.Application;
+﻿using StoreSalesSystem.Application.Services;
 
 namespace StoreSalesSystem.ConsoleUI
 {
