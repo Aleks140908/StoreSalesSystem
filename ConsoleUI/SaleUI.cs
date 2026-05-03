@@ -46,7 +46,7 @@ namespace StoreSalesSystem.ConsoleUI
                     case "0": return;
                     default:
                         Console.WriteLine("Invalid choice. Pick again!");
-                        
+                        Console.ReadKey();
                         break;
                 }
             }
