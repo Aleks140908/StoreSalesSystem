@@ -1,11 +1,15 @@
 ﻿using StoreSalesSystem.Application;
 using StoreSalesSystem.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 
 namespace StoreSalesSystem.Infrastructure
 {
-    public class FileStorage
     {
         public List<Product> Products { get; set; } = new();
         public List<Category> Categories { get; set; } = new();
@@ -24,7 +28,9 @@ namespace StoreSalesSystem.Infrastructure
         public FileStorage Load()
         {
             if (!File.Exists(path))
+            {
                 return this;
+            }
 
             var json = File.ReadAllText(path);
 
