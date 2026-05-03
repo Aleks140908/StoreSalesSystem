@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace StoreSalesSystem.Infrastructure
 {
+    public class FileStorage
     {
         public List<Product> Products { get; set; } = new();
         public List<Category> Categories { get; set; } = new();
