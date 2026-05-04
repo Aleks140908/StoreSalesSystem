@@ -5,20 +5,22 @@ using StoreSalesSystem.ConsoleUI;
 using StoreSalesSystem.Domain.Entities;
 using StoreSalesSystem.Infrastructure;
 using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StoreSalesSystem
 {
     internal class Program
     {
+        
         static void Main(string[] args)
         {
-
-            var productRepo = new FileProductRepository();
-            var categoryRepo = new FileCategoryRepository();
-            var customerRepo = new FileCustomerRepository();
-            var saleRepo = new FileSaleRepository();
-            var saleItemRepo = new FileSaleItemRepository();
-            var promoRepo = new FilePromoCodeRepository();
+            var storage = new FileStorage("Data/storage.json");
+            var productRepo = new  FileProductRepository(storage);
+            var categoryRepo = new FileCategoryRepository(storage);
+            var customerRepo = new FileCustomerRepository(storage);
+            var saleRepo = new FileSaleRepository(storage);
+            var saleItemRepo = new FileSaleItemRepository(storage);
+            var promoRepo = new FilePromoRepository(storage);
 
             // Services
             var productService = new ProductService(productRepo, categoryRepo);

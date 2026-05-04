@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StoreSalesSystem.Infrastructure
 {
-    internal class FileSaleItemRepository : ISaleItemRepository
+    public class FileSaleItemRepository : ISaleItemRepository
     {
         private FileStorage storage;
         public FileSaleItemRepository(FileStorage storage)

@@ -3,9 +3,9 @@ using StoreSalesSystem.Domain.Entities;
 
 namespace StoreSalesSystem.Infrastructure
 {
-    internal class FilePromoRepository : IPromoCodeRepository
+    public class FilePromoRepository : IPromoCodeRepository
     {
-        private FileStorage storage;
+        private readonly FileStorage storage;
 
         public FilePromoRepository(FileStorage storage)
         {

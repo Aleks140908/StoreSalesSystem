@@ -4,7 +4,7 @@ using StoreSalesSystem.Domain.Entities;
 namespace StoreSalesSystem.Infrastructure
 {
    public class FileSaleRepository : ISaleRepository
-    {
+   {
         private FileStorage storage;
 
         public FileSaleRepository(FileStorage storage)

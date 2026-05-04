@@ -3,14 +3,17 @@ using StoreSalesSystem.Domain.Entities;
 
 namespace StoreSalesSystem.Infrastructure
 {
-    internal class FileProductRepository : IProductRepository
+    public class FileProductRepository : IProductRepository
     {
-        private FileStorage storage;
+        private readonly FileStorage storage;
 
         public FileProductRepository(FileStorage storage)
         {
             this.storage = storage;
         }
+
+       
+
         public Product Add(Product product)
         {
             if (storage.Products.Any())
@@ -61,6 +64,16 @@ namespace StoreSalesSystem.Infrastructure
             storage.Products.Add(product);
 
             storage.Save();
+        }
+
+        IEnumerable<Product> IProductRepository.GetByCategory(int categoryId)
+        {
+          return GetByCategoryId(categoryId);
+        }
+
+        IEnumerable<Product> IProductRepository.GetActive()
+        {
+            throw new NotImplementedException();
         }
     }
 }

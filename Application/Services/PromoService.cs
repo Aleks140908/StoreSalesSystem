@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace StoreSalesSystem.Application.Services
 {
-    internal class PromoService
+    public class PromoService
     {
         private readonly IPromoCodeRepository promoRepo;
 

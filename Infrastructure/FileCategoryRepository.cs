@@ -3,9 +3,9 @@ using StoreSalesSystem.Domain.Entities;
 
 namespace StoreSalesSystem.Infrastructure
 {
-    internal class FileCategoryRepository : ICategoryRepository
+    public class FileCategoryRepository : ICategoryRepository
     {
-        private FileStorage storage;
+        private  readonly FileStorage storage;
 
         public FileCategoryRepository(FileStorage storage)
         {

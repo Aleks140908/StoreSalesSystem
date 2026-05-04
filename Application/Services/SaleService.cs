@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StoreSalesSystem.Application.Services
 {
-    internal class SaleService
+    public class SaleService
     {
         private readonly IProductRepository productRepo;
         private readonly ICategoryRepository categoryRepo;

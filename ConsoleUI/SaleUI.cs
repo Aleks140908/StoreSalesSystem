@@ -37,12 +37,12 @@ namespace StoreSalesSystem.ConsoleUI
 
                 switch (choice)
                 {
-                    case "1": AddProductUI(); break;
-                    case "2": CreateSaleUI(); break;
-                    case "3": AddProductToSaleUI(); break;
+                    //case "1": AddProductUI(); break;
+                    //case "2": CreateSaleUI(); break;
+                    //case "3": AddProductToSaleUI(); break;
                     case "4": ApplyPromoUI(); break;
-                    case "5": CompleteSaleUI(); break;
-                    case "6": ViewSalesHistoryUI(); break;
+                    //case "5": CompleteSaleUI(); break;
+                    //case "6": ViewSalesHistoryUI(); break;
                     case "0": return;
                     default:
                         Console.WriteLine("Invalid choice. Pick again!");
