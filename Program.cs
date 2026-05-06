@@ -14,7 +14,10 @@ namespace StoreSalesSystem
         
         static void Main(string[] args)
         {
-            var storage = new FileStorage("Data/storage.json");
+            var storage = new FileStorage("Data/storage.json").Load();
+            storage.Save();
+
+
             var productRepo = new  FileProductRepository(storage);
             var categoryRepo = new FileCategoryRepository(storage);
             var customerRepo = new FileCustomerRepository(storage);

@@ -21,6 +21,13 @@ namespace StoreSalesSystem.Infrastructure
 
         private readonly string path;
 
+       
+
+        public FileStorage()
+        {
+            path = string.Empty;
+        }
+
         public FileStorage(string Filepath)
         {
             path = Filepath;
@@ -35,22 +42,67 @@ namespace StoreSalesSystem.Infrastructure
 
             var json = File.ReadAllText(path);
 
+            var storage = JsonSerializer.Deserialize<FileStorage>(json,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+            if (storage == null)
+            {
+                return this;
+            }
+
+            Products = storage.Products ?? new();
+            Categories = storage.Categories ?? new();
+            Customers = storage.Customers ?? new();
+            Sales = storage.Sales ?? new();
+            SaleItems = storage.SaleItems ?? new();
+            PromoCodes = storage.PromoCodes ?? new();
+
+            return this;
+            /*
+            if (!File.Exists(path))
+            {
+                return this;
+            }
+
+            var json = File.ReadAllText(path);
+
             var storage = JsonSerializer.Deserialize<FileStorage>(json, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             });
 
             return storage ?? this;
+            */
         }
 
         public void Save()
         {
+            Console.WriteLine(Path.GetFullPath(path));
+
+            var directory = Path.GetDirectoryName(path);
+
+            if (!string.IsNullOrEmpty(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
             var json = JsonSerializer.Serialize(this, new JsonSerializerOptions
             {
                 WriteIndented = true
             });
 
             File.WriteAllText(path, json);
+            /*
+            var json = JsonSerializer.Serialize(this, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+
+            File.WriteAllText(path, json);
+            */
 
         }
     }
