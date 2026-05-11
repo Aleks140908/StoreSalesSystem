@@ -1,4 +1,5 @@
 ﻿using StoreSalesSystem.Application.Interfaces;
+using StoreSalesSystem.Domain.Entities;
 using StoreSalesSystem.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -75,7 +76,83 @@ namespace StoreSalesSystem.Application.Services
 
             saleRepo.Update(sale);
         }
+        public SaleItem AddProductToSale(int saleId, int productId, int quantity)
+
+        {
+
+            var sale = saleRepo.GetById(saleId);
+
+            if (sale == null)
+
+                throw new Exception("Sale not found");
 
 
+
+            var product = productRepo.GetById(productId);
+
+            if (product == null)
+
+                throw new Exception("Product not found");
+
+
+
+            if (product.StockQuantity < quantity)
+
+                throw new Exception("Not enough stock");
+
+
+
+            var item = new SaleItem
+            {
+                SaleId = saleId,
+                ProductId = productId,
+                Quantity = quantity,
+                UnitPrice = product.Price,
+                LineTotal = product.Price * quantity
+
+            };
+
+            saleItemRepo.Add(item);
+
+            product.StockQuantity -= quantity;
+            productRepo.Update(product);
+
+            RecalculateSale(saleId);
+
+            return item;
+
+        }
+
+
+
+        public IEnumerable<Sale> GetSalesHistory()
+
+        {
+
+            return saleRepo.GetAll();
+
+        }
+
+        public Sale CreateSale(int? customerId = null)
+
+        {
+
+            var sale = new Sale {
+
+                CustomerId = customerId,
+
+                Date = DateTime.Now,
+
+                Items = new List<SaleItem>(),
+
+                Subtotal = 0,
+
+                DiscountAmount = 0,
+
+                Total = 0
+
+            };
+            return saleRepo.Add(sale);
+        }
     }
 }
