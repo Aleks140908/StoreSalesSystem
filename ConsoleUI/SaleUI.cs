@@ -37,7 +37,7 @@ namespace StoreSalesSystem.ConsoleUI
 
                 switch (choice)
                 {
-                    //case "1": AddProductUI(); break;
+                    case "1": AddProductUI(); break;
                     //case "2": CreateSaleUI(); break;
                     //case "3": AddProductToSaleUI(); break;
                     case "4": ApplyPromoUI(); break;
@@ -51,6 +51,28 @@ namespace StoreSalesSystem.ConsoleUI
                 }
             }
         
+        }
+        private void AddProductUI()
+        {
+            Console.Write("Code: ");
+            string code = Console.ReadLine();
+
+            Console.Write("Name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Price: ");
+            decimal price = decimal.Parse(Console.ReadLine());
+
+            Console.Write("Category ID: ");
+            int categoryId = int.Parse(Console.ReadLine());
+
+            Console.Write("Stock: ");
+            int stock = int.Parse(Console.ReadLine());
+
+            productService.AddProduct(code, name, price, categoryId, stock);
+
+            Console.WriteLine("Product added!");
+            Console.ReadKey();
         }
         private void ApplyPromoUI()
         {
