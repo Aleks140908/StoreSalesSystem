@@ -41,7 +41,7 @@ namespace StoreSalesSystem.Infrastructure
         {
             return storage.Customers.FirstOrDefault(c => c.Id == id);
         }
-
+   
         public void Update(Customer customer)
         {
             var existingCustomer = GetById(customer.Id);

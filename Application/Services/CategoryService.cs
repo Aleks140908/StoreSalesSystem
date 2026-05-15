@@ -1,4 +1,5 @@
-﻿using StoreSalesSystem.Infrastructure;
+﻿using StoreSalesSystem.Domain.Entities;
+using StoreSalesSystem.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,34 @@ namespace StoreSalesSystem.Application.Services
         {
             this.categoryRepo = categoryRepo;
             this.productRepo = productRepo;
+        }
+        public Category AddCategory(string name) 
+        { 
+            if (string.IsNullOrWhiteSpace(name))
+                throw new Exception("Category name cannot be empty"); 
+            
+            if (categoryRepo.GetAll().
+            Any(c => c.Name.ToLower() == name.ToLower())) 
+                throw new Exception("Category already exists"); 
+            
+            var category = new Category(name); 
+            
+            return categoryRepo.Add(category); 
+        }
+        public void EditCategory(int id, string newName) 
+        { 
+            var category = categoryRepo.GetById(id); 
+            
+            if (category == null)
+                throw new Exception("Category not found");
+            
+            if (string.IsNullOrWhiteSpace(newName)) 
+                throw new Exception("Name cannot be empty"); 
+            
+            category.GetType()
+           .GetProperty("Name")!.SetValue(category, newName); 
+            
+            categoryRepo.Update(category); 
         }
     }
 }
