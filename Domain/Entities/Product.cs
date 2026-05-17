@@ -9,12 +9,12 @@ namespace StoreSalesSystem.Domain.Entities
    public class Product
    {
         public int Id { get; set; }
-        public string Code { get; private set; } = string.Empty;
-        public string Name { get; private set; } = string.Empty;
-        public decimal Price { get; private set; }
-        public int CategoryId { get; private set; }
+        public string Code { get; set; } = string.Empty;
+        public string Name { get;  set; } = string.Empty;
+        public decimal Price { get;  set; }
+        public int CategoryId { get; set; }
         public int StockQuantity { get; set; }
-        public bool IsActive { get; private set; }
+        public bool IsActive { get; set; }
         public Product() { }
         public Product(string code, string name, decimal price, int categoryId, int stockQuantity = 0)
         {

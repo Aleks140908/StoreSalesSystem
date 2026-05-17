@@ -31,15 +31,15 @@ namespace StoreSalesSystem.Application.Services
         public void ApplyPromo(int saleId, string promoCode)
         {
             var sale = saleRepo.GetById(saleId);
-
-            if (!saleItemRepo.GetBySaleId(saleId).Any()) throw new Exception("Cannot apply promo to an empty sale");
-            if (sale == null) throw new Exception("Sale not found");
+            if (sale == null) throw new Exception("Продажбата не е намерена");
+            if (!saleItemRepo.GetBySaleId(saleId).Any()) throw new Exception("Не може да се приложи промоция към празна продажба");
+            
 
             var promo = promoRepo.GetByCode(promoCode);
 
-            if (promo == null) throw new Exception("Promo code not found");
-            if (!promo.IsActive) throw new Exception("Promo code is inactive");
-            if (promo.ValidFrom > DateTime.Now || promo.ValidUntil < DateTime.Now) throw new Exception("Promo code is expired or not yet active");
+            if (promo == null) throw new Exception("Промо кодът не е намерен");
+            if (!promo.IsActive) throw new Exception("Промо кодът е неактивен");
+            if (promo.ValidFrom > DateTime.Now || promo.ValidUntil < DateTime.Now) throw new Exception("Промо кодът е изтекъл или все още не е активен");
 
             sale.PromoCodeId = promo.Id;
             RecalculateSale(saleId);
@@ -84,7 +84,7 @@ namespace StoreSalesSystem.Application.Services
 
             if (sale == null)
 
-                throw new Exception("Sale not found");
+                throw new Exception("Продажбата не е намерена");
 
 
 
@@ -92,13 +92,13 @@ namespace StoreSalesSystem.Application.Services
 
             if (product == null)
 
-                throw new Exception("Product not found");
+                throw new Exception("Продуктът не е намерен");
 
 
 
             if (product.StockQuantity < quantity)
 
-                throw new Exception("Not enough stock");
+                throw new Exception("Няма достатъчно наличност");
 
 
 
