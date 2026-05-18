@@ -10,8 +10,8 @@ namespace StoreSalesSystem.Domain.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-
-        public ICollection<Sale>? Sales { get; set; }
+      
+        public ICollection<Sale> Sales { get; set; } = new List<Sale>();
         public Customer()
         {
             Sales = new List<Sale>();

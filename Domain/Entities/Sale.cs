@@ -26,7 +26,6 @@ namespace StoreSalesSystem.Domain.Entities
         public int? CustomerId { get; set; }
         public Customer? Customer { get; set; }
         public bool IsCompleted { get; set; }
-
         public Sale()
         {
             Items = new List<SaleItem>();

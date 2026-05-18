@@ -19,6 +19,7 @@ namespace StoreSalesSystem.Domain.Entities
         public DateTime ValidUntil { get; set; }
 
         public bool IsActive { get; set; } = true;
+        public ICollection<Sale> Sales { get; set; } = new List<Sale>();
         public PromoCode() { }
 
         public PromoCode(string code, PromoType type, decimal value, DateTime validFrom, DateTime validUntil)
