@@ -73,7 +73,7 @@ namespace StoreSalesSystem.Infrastructure
 
         IEnumerable<Product> IProductRepository.GetActive()
         {
-            throw new NotImplementedException();
+            return storage.Products.Where(p => p.IsActive);
         }
     }
 }

@@ -1,13 +1,12 @@
 ﻿using StoreSalesSystem.Application;
 using StoreSalesSystem.Application.Interfaces;
 using StoreSalesSystem.Application.Services;
-using StoreSalesSystem.ConsoleUI;
 using StoreSalesSystem.Domain.Entities;
 using StoreSalesSystem.Infrastructure;
 using System.Text.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace StoreSalesSystem
+namespace StoreSalesSystem.ConsoleUI
 {
     internal class Program
     {
