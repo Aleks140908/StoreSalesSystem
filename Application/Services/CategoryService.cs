@@ -1,4 +1,6 @@
 ﻿using StoreSalesSystem.Domain.Entities;
+using StoreSalesSystem.Application.Interfaces;
+
 using StoreSalesSystem.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -10,10 +12,10 @@ namespace StoreSalesSystem.Application.Services
 {
     public class CategoryService
     {
-        private readonly FileCategoryRepository categoryRepo;
-        private readonly FileProductRepository productRepo;
+        private readonly ICategoryRepository categoryRepo;
+        private readonly IProductRepository productRepo;
 
-        public CategoryService(FileCategoryRepository categoryRepo, FileProductRepository productRepo)
+        public CategoryService(ICategoryRepository categoryRepo, IProductRepository productRepo)
         {
             this.categoryRepo = categoryRepo;
             this.productRepo = productRepo;
