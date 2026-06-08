@@ -80,5 +80,9 @@ namespace StoreSalesSystem.Application.Services
             return productRepo.GetAll()
                 .Where(p => p.CategoryId == categoryId && p.IsActive);
         }
+        public IEnumerable<Product> GetProducts()
+        {
+            return productRepo.GetAll();
+        }
     }
 }
