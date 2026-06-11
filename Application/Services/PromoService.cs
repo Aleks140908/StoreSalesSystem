@@ -38,6 +38,7 @@ namespace StoreSalesSystem.Application.Services
 
             
             return promoRepo.Add(promo);
+            
 
         }
         public void EditPromo(int id, string code, PromoType type, decimal value, DateTime from, DateTime until)

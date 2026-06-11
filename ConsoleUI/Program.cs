@@ -23,17 +23,26 @@ namespace StoreSalesSystem.ConsoleUI
             var saleRepo = new FileSaleRepository(storage);
             var saleItemRepo = new FileSaleItemRepository(storage);
             var promoRepo = new FilePromoRepository(storage);
+            if (!categoryRepo.GetAll().Any())
+            {
+                categoryRepo.Add(new Category("Дамски"));
+                categoryRepo.Add(new Category("Мъжки"));
+                categoryRepo.Add(new Category("Детски"));
 
-            // Services
-            var productService = new ProductService(productRepo, categoryRepo);
+                Console.WriteLine("✔ Категориите за дрехи са добавени!");
+            }
+
+                // Services
+                var productService = new ProductService(productRepo, categoryRepo);
             var categoryService = new CategoryService(categoryRepo, productRepo);
             var promoService = new PromoService(promoRepo);
             var saleService = new SaleService(productRepo, categoryRepo, customerRepo, saleRepo, saleItemRepo, promoRepo);
-
+            
             // UI
             var ui = new SaleUI(productService, categoryService, promoService, saleService);
 
             ui.Run();
+
         }
     }
 }
