@@ -74,63 +74,137 @@ namespace StoreSalesSystem.ConsoleUI
         {
             Console.Write("Код: ");
             string code = Console.ReadLine()!;
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                Console.WriteLine("Кодът е задължителен.");
+                return;
+            }
 
             Console.Write("Име: ");
             string name = Console.ReadLine()!;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                Console.WriteLine("Името е задължително.");
+                return;
+            }
 
             Console.Write("Цена: ");
-            decimal price = decimal.Parse(Console.ReadLine()!);
+            string priceInput = Console.ReadLine()!;
+            if (!decimal.TryParse(priceInput, out decimal price) || price <= 0)
+            {
+                Console.WriteLine("Невалидна цена.");
+                return;
+            }
 
             Console.Write("Категори ID: ");
-            int categoryId = int.Parse(Console.ReadLine()!);
+            string catInput = Console.ReadLine()!;
+            if (!int.TryParse(catInput, out int categoryId) || categoryId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
 
             Console.Write("Наличност: ");
-            int stock = int.Parse(Console.ReadLine()!);
+            string stockInput = Console.ReadLine()!;
+            if (!int.TryParse(stockInput, out int stock) || stock < 0)
+            {
+                Console.WriteLine("Невалидна наличност.");
+                return;
+            }
 
-            productService.AddProduct(code, name, price, categoryId, stock);
-
-            Console.WriteLine("Продуктът е добавен!");
-            Console.ReadKey();
+            try
+            {
+                productService.AddProduct(code, name, price, categoryId, stock);
+                Console.WriteLine("Продуктът е добавен.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
+
         private void ApplyPromoUI()
         {
             Console.Write("Продажба ID: ");
-            int saleId = int.Parse(Console.ReadLine()!);
+            string saleInput = Console.ReadLine()!;
+            if (!int.TryParse(saleInput, out int saleId) || saleId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
 
             Console.Write("Промо Код: ");
             string code = Console.ReadLine()!;
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                Console.WriteLine("Кодът е задължителен.");
+                return;
+            }
 
-            saleService.ApplyPromo(saleId, code);
-
-            Console.WriteLine("Промото е приложено!");
-            Console.ReadKey();
+            try
+            {
+                saleService.ApplyPromo(saleId, code);
+                Console.WriteLine("Промото е приложено.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
+
         private void ViewSalesHistoryUI()
         {
             var sales = saleService.GetSalesHistory();
+
+            if (sales == null || sales.Count() == 0)
+            {
+                Console.WriteLine("Няма продажби.");
+                return;
+            }
+
             foreach (var sale in sales)
             {
-                Console.WriteLine($"Продажба ID: {sale.Id}, Общо: {sale.Total}, Дата: {sale.Date}");
+                Console.WriteLine($"{sale.Id} | Total: {sale.Total} | Date: {sale.Date}");
             }
-            Console.ReadKey();
-
         }
+
         private void AddProductToSaleUI(SaleService saleService)
         {
             Console.Write("Продажба ID: ");
-            int saleId = int.Parse(Console.ReadLine()!);
+            string saleInput = Console.ReadLine()!;
+            if (!int.TryParse(saleInput, out int saleId) || saleId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
 
             Console.Write("Продукт ID: ");
-            int productId = int.Parse(Console.ReadLine()!);
+            string prodInput = Console.ReadLine()!;
+            if (!int.TryParse(prodInput, out int productId) || productId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
 
             Console.Write("Количество: ");
-            int qty = int.Parse(Console.ReadLine()!);
+            string qtyInput = Console.ReadLine()!;
+            if (!int.TryParse(qtyInput, out int qty) || qty <= 0)
+            {
+                Console.WriteLine("Невалидно количество.");
+                return;
+            }
 
-            saleService.AddProductToSale(saleId, productId, qty);
-
-            Console.WriteLine("Продуктът е добавен към продажбата!");
-            Console.ReadKey();
+            try
+            {
+                saleService.AddProductToSale(saleId, productId, qty);
+                Console.WriteLine("Продуктът е добавен към продажбата.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
+
         private void CreateSaleUI()
         {
             var sale = saleService.CreateSale();
@@ -140,138 +214,286 @@ namespace StoreSalesSystem.ConsoleUI
         private void EditProductUI()
         {
             Console.Write("Продукт ID: ");
-            int id = int.Parse(Console.ReadLine()!);
+            string idInput = Console.ReadLine()!;
+            if (!int.TryParse(idInput, out int id) || id <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
 
-            Console.Write("Новo Име: ");
+            Console.Write("Ново име: ");
             string name = Console.ReadLine()!;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                Console.WriteLine("Името е задължително.");
+                return;
+            }
 
-            Console.Write("Нова Цена: ");
-            decimal price = decimal.Parse(Console.ReadLine()!);
+            Console.Write("Нова цена: ");
+            string priceInput = Console.ReadLine()!;
+            if (!decimal.TryParse(priceInput, out decimal price) || price <= 0)
+            {
+                Console.WriteLine("Невалидна цена.");
+                return;
+            }
 
-            Console.Write("Нова Категори ID: ");
-            int categoryId = int.Parse(Console.ReadLine()!);
+            Console.Write("Нова категория ID: ");
+            string catInput = Console.ReadLine()!;
+            if (!int.TryParse(catInput, out int categoryId) || categoryId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
 
-            productService.EditProduct(id, name, price, categoryId);
-
-            Console.WriteLine("Продуктът е обновен!");
-            Console.ReadKey();
+            try
+            {
+                productService.EditProduct(id, name, price, categoryId);
+                Console.WriteLine("Продуктът е обновен.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         private void DeactivateProductUI()
         {
             Console.Write("Продукт ID: ");
-            int id = int.Parse(Console.ReadLine()!);
+            string idInput = Console.ReadLine()!;
+            if (!int.TryParse(idInput, out int id) || id <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
 
-            productService.DeactivateProduct(id);
-
-            Console.WriteLine("Продуктът е деактивиран!");
-            Console.ReadKey();
+            try
+            {
+                productService.DeactivateProduct(id);
+                Console.WriteLine("Продуктът е деактивиран.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
+
         private void SearchProductsUI()
         {
-            Console.Write("Търсене на текст: ");
+            Console.Write("Търсене: ");
             string text = Console.ReadLine()!;
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                Console.WriteLine("Текстът е задължителен.");
+                return;
+            }
 
             var results = productService.SearchProducts(text);
 
+            if (results == null || results.Count() == 0)
+            {
+                Console.WriteLine("Няма намерени продукти.");
+                return;
+            }
+
             foreach (var p in results)
                 Console.WriteLine($"{p.Id} | {p.Name} | {p.Code} | {p.Price}");
-
-            Console.ReadKey();
         }
+
+
         private void FilterByCategoryUI()
         {
-            Console.Write("Категори ID: ");
-            int categoryId = int.Parse(Console.ReadLine()!);
+            Console.Write("Категория ID: ");
+            string input = Console.ReadLine()!;
+            if (!int.TryParse(input, out int categoryId) || categoryId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
 
             var products = productService.GetProductsByCategory(categoryId);
 
+            if (products == null || products.Count() == 0)
+            {
+                Console.WriteLine("Няма продукти.");
+                return;
+            }
+
             foreach (var p in products)
                 Console.WriteLine($"{p.Id} | {p.Name} | {p.Price}");
-
-            Console.ReadKey();
         }
+
         private void CheckStockUI()
         {
             Console.Write("Product ID: ");
-            int productId = int.Parse(Console.ReadLine()!);
+            string idInput = Console.ReadLine()!;
+            if (!int.TryParse(idInput, out int productId) || productId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
 
             Console.Write("Quantity: ");
-            int qty = int.Parse(Console.ReadLine()!);
+            string qtyInput = Console.ReadLine()!;
+            if (!int.TryParse(qtyInput, out int qty) || qty <= 0)
+            {
+                Console.WriteLine("Невалидно количество.");
+                return;
+            }
 
             bool hasStock = productService.HasStock(productId, qty);
 
-            Console.WriteLine(hasStock ? "Наличен е наличен запас" : "Няма достатъчно наличен запас");
-            Console.ReadKey();
+            Console.WriteLine(hasStock ? "Има наличност." : "Няма достатъчно наличност.");
         }
         private void AddPromoUI()
         {
-            Console.Write("Промо Код: ");
+            Console.Write("Промо код: ");
             string code = Console.ReadLine()!;
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                Console.WriteLine("Кодът е задължителен.");
+                return;
+            }
 
-            Console.Write("Тип Промо (0 = Процент, 1 = Фиксирана сума): ");
-            PromoType type = (PromoType)int.Parse(Console.ReadLine()!);
+            Console.Write("Тип (0=Процент, 1=Фиксирана сума): ");
+            string typeInput = Console.ReadLine()!;
+            if (!int.TryParse(typeInput, out int typeValue) || (typeValue != 0 && typeValue != 1))
+            {
+                Console.WriteLine("Невалиден тип.");
+                return;
+            }
 
             Console.Write("Стойност: ");
-            decimal value = decimal.Parse(Console.ReadLine()!);
+            string valInput = Console.ReadLine()!;
+            if (!decimal.TryParse(valInput, out decimal value) || value <= 0)
+            {
+                Console.WriteLine("Невалидна стойност.");
+                return;
+            }
 
-            Console.Write("Валидност От (yyyy-mm-dd): ");
-            DateTime from = DateTime.Parse(Console.ReadLine()!);
+            Console.Write("Валидност от: ");
+            string fromInput = Console.ReadLine()!;
+            if (!DateTime.TryParse(fromInput, out DateTime from))
+            {
+                Console.WriteLine("Невалидна дата.");
+                return;
+            }
 
-            Console.Write("Валидност До (yyyy-mm-dd): ");
-            DateTime until = DateTime.Parse(Console.ReadLine()!);
+            Console.Write("Валидност до: ");
+            string untilInput = Console.ReadLine()!;
+            if (!DateTime.TryParse(untilInput, out DateTime until) || until < from)
+            {
+                Console.WriteLine("Невалидна дата.");
+                return;
+            }
 
-            promoService.AddPromo(code, type, value, from, until);
-
-            Console.WriteLine("Промо кодът е добавен!");
-            Console.ReadKey();
+            try
+            {
+                promoService.AddPromo(code, (PromoType)typeValue, value, from, until);
+                Console.WriteLine("Промо кодът е добавен.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
+
 
         private void EditPromoUI()
         {
             Console.Write("Промо ID: ");
-            int id = int.Parse(Console.ReadLine()!);
+            string idInput = Console.ReadLine()!;
+            if (!int.TryParse(idInput, out int id) || id <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
 
-            Console.Write("Нов Код: ");
+            Console.Write("Нов код: ");
             string code = Console.ReadLine()!;
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                Console.WriteLine("Кодът е задължителен.");
+                return;
+            }
 
-            Console.Write("Нов Тип (0 = Процент, 1 = Фиксирана сума): ");
-            PromoType type = (PromoType)int.Parse(Console.ReadLine()!);
+            Console.Write("Нов тип (0=Процент, 1=Фиксирана сума): ");
+            string typeInput = Console.ReadLine()!;
+            if (!int.TryParse(typeInput, out int typeValue) || (typeValue != 0 && typeValue != 1))
+            {
+                Console.WriteLine("Невалиден тип.");
+                return;
+            }
 
-            Console.Write("Нова Стойност: ");
-            decimal value = decimal.Parse(Console.ReadLine()!);
+            Console.Write("Нова стойност: ");
+            string valInput = Console.ReadLine()!;
+            if (!decimal.TryParse(valInput, out decimal value) || value <= 0)
+            {
+                Console.WriteLine("Невалидна стойност.");
+                return;
+            }
 
-            Console.Write("Нова Валидност От (yyyy-mm-dd): ");
-            DateTime from = DateTime.Parse(Console.ReadLine()!);
+            Console.Write("Нова валидност от: ");
+            string fromInput = Console.ReadLine()!;
+            if (!DateTime.TryParse(fromInput, out DateTime from))
+            {
+                Console.WriteLine("Невалидна дата.");
+                return;
+            }
 
-            Console.Write("Нова Валидност До (yyyy-mm-dd): ");
-            DateTime until = DateTime.Parse(Console.ReadLine()!);
+            Console.Write("Нова валидност до: ");
+            string untilInput = Console.ReadLine()!;
+            if (!DateTime.TryParse(untilInput, out DateTime until) || until < from)
+            {
+                Console.WriteLine("Невалидна дата.");
+                return;
+            }
 
-            promoService.EditPromo(id, code, type, value, from, until);
-
-            Console.WriteLine("Промо кодът е актуализиран!");
-            Console.ReadKey();
+            try
+            {
+                promoService.EditPromo(id, code, (PromoType)typeValue, value, from, until);
+                Console.WriteLine("Промо кодът е обновен.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
+
 
         private void DeactivatePromoUI()
         {
             Console.Write("Промо ID: ");
-            int id = int.Parse(Console.ReadLine()!);
+            string idInput = Console.ReadLine()!;
+            if (!int.TryParse(idInput, out int id) || id <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
 
-            promoService.DeactivatePromo(id);
-
-            Console.WriteLine("Промо кодът е деактивиран!");
-            Console.ReadKey();
+            try
+            {
+                promoService.DeactivatePromo(id);
+                Console.WriteLine("Промо кодът е деактивиран.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private void CheckPromoValidityUI()
         {
-            Console.Write("Промо Код: ");
+            Console.Write("Промо код: ");
             string code = Console.ReadLine()!;
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                Console.WriteLine("Кодът е задължителен.");
+                return;
+            }
 
             bool valid = promoService.IsPromoValid(code);
 
-            Console.WriteLine(valid ? "Промо кодът е ВАЛИДЕН" : "Промо кодът НЕ е валиден");
-            Console.ReadKey();
+            Console.WriteLine(valid ? "Промо кодът е валиден." : "Промо кодът не е валиден.");
         }
+
     }
 }
