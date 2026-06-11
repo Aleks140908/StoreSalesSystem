@@ -73,19 +73,19 @@ namespace StoreSalesSystem.ConsoleUI
         private void AddProductUI()
         {
             Console.Write("Код: ");
-            string code = Console.ReadLine();
+            string code = Console.ReadLine()!;
 
             Console.Write("Име: ");
-            string name = Console.ReadLine();
+            string name = Console.ReadLine()!;
 
             Console.Write("Цена: ");
-            decimal price = decimal.Parse(Console.ReadLine());
+            decimal price = decimal.Parse(Console.ReadLine()!);
 
             Console.Write("Категори ID: ");
-            int categoryId = int.Parse(Console.ReadLine());
+            int categoryId = int.Parse(Console.ReadLine()!);
 
             Console.Write("Наличност: ");
-            int stock = int.Parse(Console.ReadLine());
+            int stock = int.Parse(Console.ReadLine()!);
 
             productService.AddProduct(code, name, price, categoryId, stock);
 
@@ -95,10 +95,10 @@ namespace StoreSalesSystem.ConsoleUI
         private void ApplyPromoUI()
         {
             Console.Write("Продажба ID: ");
-            int saleId = int.Parse(Console.ReadLine());
+            int saleId = int.Parse(Console.ReadLine()!);
 
             Console.Write("Промо Код: ");
-            string code = Console.ReadLine();
+            string code = Console.ReadLine()!;
 
             saleService.ApplyPromo(saleId, code);
 
@@ -118,13 +118,13 @@ namespace StoreSalesSystem.ConsoleUI
         private void AddProductToSaleUI(SaleService saleService)
         {
             Console.Write("Продажба ID: ");
-            int saleId = int.Parse(Console.ReadLine());
+            int saleId = int.Parse(Console.ReadLine()!);
 
             Console.Write("Продукт ID: ");
-            int productId = int.Parse(Console.ReadLine());
+            int productId = int.Parse(Console.ReadLine()!);
 
             Console.Write("Количество: ");
-            int qty = int.Parse(Console.ReadLine());
+            int qty = int.Parse(Console.ReadLine()!);
 
             saleService.AddProductToSale(saleId, productId, qty);
 
@@ -140,16 +140,16 @@ namespace StoreSalesSystem.ConsoleUI
         private void EditProductUI()
         {
             Console.Write("Продукт ID: ");
-            int id = int.Parse(Console.ReadLine());
+            int id = int.Parse(Console.ReadLine()!);
 
             Console.Write("Новo Име: ");
-            string name = Console.ReadLine();
+            string name = Console.ReadLine()!;
 
             Console.Write("Нова Цена: ");
-            decimal price = decimal.Parse(Console.ReadLine());
+            decimal price = decimal.Parse(Console.ReadLine()!);
 
             Console.Write("Нова Категори ID: ");
-            int categoryId = int.Parse(Console.ReadLine());
+            int categoryId = int.Parse(Console.ReadLine()!);
 
             productService.EditProduct(id, name, price, categoryId);
 
@@ -159,7 +159,7 @@ namespace StoreSalesSystem.ConsoleUI
         private void DeactivateProductUI()
         {
             Console.Write("Продукт ID: ");
-            int id = int.Parse(Console.ReadLine());
+            int id = int.Parse(Console.ReadLine()!);
 
             productService.DeactivateProduct(id);
 
@@ -169,7 +169,7 @@ namespace StoreSalesSystem.ConsoleUI
         private void SearchProductsUI()
         {
             Console.Write("Търсене на текст: ");
-            string text = Console.ReadLine();
+            string text = Console.ReadLine()!;
 
             var results = productService.SearchProducts(text);
 
@@ -181,7 +181,7 @@ namespace StoreSalesSystem.ConsoleUI
         private void FilterByCategoryUI()
         {
             Console.Write("Категори ID: ");
-            int categoryId = int.Parse(Console.ReadLine());
+            int categoryId = int.Parse(Console.ReadLine()!);
 
             var products = productService.GetProductsByCategory(categoryId);
 
@@ -193,10 +193,10 @@ namespace StoreSalesSystem.ConsoleUI
         private void CheckStockUI()
         {
             Console.Write("Product ID: ");
-            int productId = int.Parse(Console.ReadLine());
+            int productId = int.Parse(Console.ReadLine()!);
 
             Console.Write("Quantity: ");
-            int qty = int.Parse(Console.ReadLine());
+            int qty = int.Parse(Console.ReadLine()!);
 
             bool hasStock = productService.HasStock(productId, qty);
 
@@ -206,19 +206,19 @@ namespace StoreSalesSystem.ConsoleUI
         private void AddPromoUI()
         {
             Console.Write("Промо Код: ");
-            string code = Console.ReadLine();
+            string code = Console.ReadLine()!;
 
             Console.Write("Тип Промо (0 = Процент, 1 = Фиксирана сума): ");
-            PromoType type = (PromoType)int.Parse(Console.ReadLine());
+            PromoType type = (PromoType)int.Parse(Console.ReadLine()!);
 
             Console.Write("Стойност: ");
-            decimal value = decimal.Parse(Console.ReadLine());
+            decimal value = decimal.Parse(Console.ReadLine()!);
 
             Console.Write("Валидност От (yyyy-mm-dd): ");
-            DateTime from = DateTime.Parse(Console.ReadLine());
+            DateTime from = DateTime.Parse(Console.ReadLine()!);
 
             Console.Write("Валидност До (yyyy-mm-dd): ");
-            DateTime until = DateTime.Parse(Console.ReadLine());
+            DateTime until = DateTime.Parse(Console.ReadLine()!);
 
             promoService.AddPromo(code, type, value, from, until);
 
@@ -229,22 +229,22 @@ namespace StoreSalesSystem.ConsoleUI
         private void EditPromoUI()
         {
             Console.Write("Промо ID: ");
-            int id = int.Parse(Console.ReadLine());
+            int id = int.Parse(Console.ReadLine()!);
 
             Console.Write("Нов Код: ");
-            string code = Console.ReadLine();
+            string code = Console.ReadLine()!;
 
             Console.Write("Нов Тип (0 = Процент, 1 = Фиксирана сума): ");
-            PromoType type = (PromoType)int.Parse(Console.ReadLine());
+            PromoType type = (PromoType)int.Parse(Console.ReadLine()!);
 
             Console.Write("Нова Стойност: ");
-            decimal value = decimal.Parse(Console.ReadLine());
+            decimal value = decimal.Parse(Console.ReadLine()!);
 
             Console.Write("Нова Валидност От (yyyy-mm-dd): ");
-            DateTime from = DateTime.Parse(Console.ReadLine());
+            DateTime from = DateTime.Parse(Console.ReadLine()!);
 
             Console.Write("Нова Валидност До (yyyy-mm-dd): ");
-            DateTime until = DateTime.Parse(Console.ReadLine());
+            DateTime until = DateTime.Parse(Console.ReadLine()!);
 
             promoService.EditPromo(id, code, type, value, from, until);
 
@@ -255,7 +255,7 @@ namespace StoreSalesSystem.ConsoleUI
         private void DeactivatePromoUI()
         {
             Console.Write("Промо ID: ");
-            int id = int.Parse(Console.ReadLine());
+            int id = int.Parse(Console.ReadLine()!);
 
             promoService.DeactivatePromo(id);
 
@@ -266,7 +266,7 @@ namespace StoreSalesSystem.ConsoleUI
         private void CheckPromoValidityUI()
         {
             Console.Write("Промо Код: ");
-            string code = Console.ReadLine();
+            string code = Console.ReadLine()!;
 
             bool valid = promoService.IsPromoValid(code);
 
