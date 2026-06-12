@@ -19,20 +19,42 @@ namespace StoreSalesSystem.Domain.Entities
         public DateTime ValidUntil { get; set; }
 
         public bool IsActive { get; set; } = true;
-        public ICollection<Sale> Sales { get; set; } = new List<Sale>();
+       // public ICollection<Sale> Sales { get; set; } = new List<Sale>();
         public PromoCode() { }
 
         public PromoCode(string code, PromoType type, decimal value, DateTime validFrom, DateTime validUntil)
         {
-            if (string.IsNullOrWhiteSpace(code))throw new ArgumentException("Promo code shouldn't be empty");
-            if (value <= 0) throw new ArgumentException("Promo value must be a positive number");
-            if (validUntil <= validFrom) throw new ArgumentException("The expiration date of the promo code must be after the manufactored date");
+            if (string.IsNullOrWhiteSpace(code))throw new ArgumentException("Промо кодът не може да бъде празен");
+            if (value <= 0) throw new ArgumentException("Стойността на промо кода трябва да бъде положително число");
+            if (validUntil <= validFrom) throw new ArgumentException("Крайната дата на промо кода трябва да бъде след началната дата");
 
             Code = code;
             Type = type;
             Value = value;
             ValidFrom = validFrom;
             ValidUntil = validUntil;
+        }
+
+        public void SetValue(decimal value)
+        {
+            if (value <= 0)
+                throw new ArgumentException("Стойността на промо кода трябва да бъде положително число");
+
+            Value = value;
+        }
+
+        public void SetDates(DateTime from, DateTime until)
+        {
+            if (until <= from)
+                throw new ArgumentException("Крайната дата на промо кода трябва да бъде след началната дата");
+
+            ValidFrom = from;
+            ValidUntil = until;
+        }
+
+        public void Deactivate()
+        {
+            IsActive = false;
         }
     }
 }

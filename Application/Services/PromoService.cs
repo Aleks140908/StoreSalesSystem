@@ -49,23 +49,23 @@ namespace StoreSalesSystem.Application.Services
                 throw new Exception("Промоцията не е намерена");
             }
 
-            promo.Code = code;
-            promo.Type = type;
-            promo.Value = value;
-            promo.ValidFrom = from;
-            promo.ValidUntil = until;
+            promo.SetValue(value);
+            promo.SetDates(from, until);
 
             promoRepo.Update(promo);
         }
         public void DeactivatePromo(int id)
         {
             var promo = promoRepo.GetById(id);
-            if (promo == null)
-            {
-                return;
-            }
+              if (promo == null)
+              {
+                throw new Exception("Промото не е намерено");
+              }
 
-            promo.IsActive = false;
+                if (!promo.IsActive)
+                throw new Exception("Промото вече е неактивно");
+
+            promo.Deactivate();
             promoRepo.Update(promo);
         }
         public bool IsPromoValid(string code)

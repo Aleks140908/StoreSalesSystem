@@ -16,7 +16,7 @@ namespace StoreSalesSystem.Domain.Entities
         public Category() { }
         public Category(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))throw new ArgumentException("You need to enter the category's name!");
+            if (string.IsNullOrWhiteSpace(name))throw new ArgumentException("Трябва да въведете името на категорията!");
             Name = name;
         }
     }

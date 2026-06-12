@@ -16,24 +16,16 @@ namespace StoreSalesSystem.ConsoleUI
             var storage = new FileStorage("Data/storage.json").Load();
             storage.Save();
 
-
+            // Repositories
             var productRepo = new  FileProductRepository(storage);
             var categoryRepo = new FileCategoryRepository(storage);
             var customerRepo = new FileCustomerRepository(storage);
             var saleRepo = new FileSaleRepository(storage);
             var saleItemRepo = new FileSaleItemRepository(storage);
             var promoRepo = new FilePromoRepository(storage);
-            if (!categoryRepo.GetAll().Any())
-            {
-                categoryRepo.Add(new Category("Дамски"));
-                categoryRepo.Add(new Category("Мъжки"));
-                categoryRepo.Add(new Category("Детски"));
 
-                Console.WriteLine("✔ Категориите за дрехи са добавени!");
-            }
-
-                // Services
-                var productService = new ProductService(productRepo, categoryRepo);
+            // Services
+            var productService = new ProductService(productRepo, categoryRepo);
             var categoryService = new CategoryService(categoryRepo, productRepo);
             var promoService = new PromoService(promoRepo);
             var saleService = new SaleService(productRepo, categoryRepo, customerRepo, saleRepo, saleItemRepo, promoRepo);

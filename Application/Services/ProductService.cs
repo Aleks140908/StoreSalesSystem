@@ -84,5 +84,18 @@ namespace StoreSalesSystem.Application.Services
         {
             return productRepo.GetAll();
         }
+        public void AddQuantityOfProduct(int productId, int quantity)
+        {
+            if (quantity <= 0)
+                throw new Exception("Количество трябва да бъде по-голямо от 0");
+
+            var product = productRepo.GetById(productId);
+            if (product == null)
+                throw new Exception("Продуктът не е намерен");
+            if (!product.IsActive)
+                throw new Exception("Не може да се модифицира неактивен продукт");
+            product.IncreaseStock(quantity);
+            productRepo.Update(product);
+        }
     }
 }

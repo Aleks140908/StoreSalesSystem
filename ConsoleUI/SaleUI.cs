@@ -24,21 +24,43 @@ namespace StoreSalesSystem.ConsoleUI
             {
                 Console.Clear();
                 Console.WriteLine("=== STORE SALES SYSTEM ===");
+
+                Console.WriteLine("\n=== ПРОДУКТИ ===");
                 Console.WriteLine("1. Добави Продукт");
-                Console.WriteLine("2. Създай Продажба");
-                Console.WriteLine("3. Добави Продукт към Продажба");
-                Console.WriteLine("4. Приложи Промо");
-                Console.WriteLine("5. Завърши Продажба");
-                Console.WriteLine("6. Преглед на Историята на Продажбите");
-                Console.WriteLine("7. Редактирай Продукт");
-                Console.WriteLine("8. Деактивирай Продукт");
-                Console.WriteLine("9. Търсене на Продукти");
-                Console.WriteLine("10. Филтрирай Продукти по Категория");
-                Console.WriteLine("11. Провери Наличност");
-                Console.WriteLine("12. Добави Промо Код");
-                Console.WriteLine("13. Редактирай Промо Код");
-                Console.WriteLine("14. Деактивирай Промо Код");
-                Console.WriteLine("15. Провери Валидността на Промо Кода");
+                Console.WriteLine("2. Редактирай Продукт");
+                Console.WriteLine("3. Деактивирай Продукт");
+                Console.WriteLine("4. Търсене на продукт");
+                Console.WriteLine("5. Филтрирай по категория");
+                Console.WriteLine("6. Провери наличност");
+                Console.WriteLine("7. Увеличи количество");
+
+                Console.WriteLine("\n=== КАТЕГОРИИ ===");
+                Console.WriteLine("8. Добави категория");
+                Console.WriteLine("9. Редактирай категория");
+                Console.WriteLine("10. Изтрий Категория");
+                Console.WriteLine("11. Покажи всички категории");
+
+                Console.WriteLine("\n=== ПРОДАЖБИ  ===");
+                Console.WriteLine("12. Създай Продажба");
+                Console.WriteLine("13. Добави продукт към продажба ");
+                Console.WriteLine("14. Промени количество в продажба");
+                Console.WriteLine("15. Премахни продукт от продажба");
+                Console.WriteLine("16. Приложи промо код");
+                Console.WriteLine("17. Премахни промо код");
+                Console.WriteLine("18. Пресметни продажба");
+                Console.WriteLine("19. Завърши продажба");
+                Console.WriteLine("20. Издай касова бележка");
+                Console.WriteLine("21. История на продажбите");
+
+                Console.WriteLine("\n=== ПРОМО КОДОВЕ ===");
+                Console.WriteLine("22. Добави промо код");
+                Console.WriteLine("23. Редактирай промо код");
+                Console.WriteLine("24. Деактивирай промо код");
+                Console.WriteLine("25. Провери валидност на промо код");
+
+                Console.WriteLine("\n=== РЕПОРТИ ===");
+                Console.WriteLine("26. Най-продавани продукти");
+                Console.WriteLine("27. Продажби по период");
                 Console.WriteLine("0. Изход");
                 Console.Write("Избери: ");
 
@@ -47,20 +69,36 @@ namespace StoreSalesSystem.ConsoleUI
                 switch (choice)
                 {
                     case "1": AddProductUI(); break;
-                    case "2": CreateSaleUI(); break;
-                    case "3": AddProductToSaleUI(saleService); break;
-                    case "4": ApplyPromoUI(); break;
-                    //case "5": CompleteSaleUI(); break;
-                    case "6": ViewSalesHistoryUI(); break;
-                    case "7": EditProductUI(); break;
-                    case "8": DeactivateProductUI(); break;
-                    case "9": SearchProductsUI(); break;
-                    case "10": FilterByCategoryUI(); break;
-                    case "11": CheckStockUI(); break;
-                    case "12": AddPromoUI(); break;
-                    case "13": EditPromoUI(); break;
-                    case "14": DeactivatePromoUI(); break;
-                    case "15": CheckPromoValidityUI(); break;
+                    case "2": EditProductUI(); break;
+                    case "3": DeactivateProductUI(); break;
+                    case "4": SearchProductsUI(); break;
+                    case "5": FilterByCategoryUI(); break;
+                    case "6": CheckStockUI(); break;
+                    case "7": AddQuantityOfProductUI(); break;
+
+                    case "8": AddCategoryUI(); break;
+                    case "9": UpdateCategoryUI(); break;
+                    case "10": DeleteCategoryUI(); break;
+                    case "11": ShowAllCategoriesUI(); break;
+
+                    case "12": CreateSaleUI(); break;
+                    case "13": AddProductToSaleUI(saleService); break;
+                    case "14": ChangeQuantityInSaleUI(); break;
+                    case "15": RemoveProductFromSaleUI(); break;
+                    case "16": ApplyPromoCodeUI(); break;
+                    case "17": RemovePromoCodeUI(); break;
+                    case "18": CalculateSaleUI(); break;
+                    case "19": CompleteSaleUI(); break;
+                    case "20": GenerateReceiptUI(); break;
+                    case "21": ShowSalesHistoryUI(); break;
+
+                    case "22": AddPromoCodeUI(); break;
+                    case "23": EditPromoCodeUI(); break;
+                    case "24": DeactivatePromoCodeUI(); break;
+                    case "25": CheckPromoCodeValidityUI(); break;
+
+                    case "26": ShowMostPurchasedProductsUI(); break;
+                    case "27": ShowSalesByPeriodUI(); break;
                     case "0": return;
                     default:
                         Console.WriteLine("Избери отново");
@@ -69,6 +107,370 @@ namespace StoreSalesSystem.ConsoleUI
                 }
             }
 
+        }
+        private void ShowSalesByPeriodUI()
+        {
+            Console.Write("Начална дата (yyyy-MM-dd): ");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime from))
+            {
+                Console.WriteLine("Невалидна начална дата.");
+                Console.ReadKey();
+                return;
+            }
+
+            Console.Write("Крайна дата (yyyy-MM-dd): ");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime to))
+            {
+                Console.WriteLine("Невалидна крайна дата.");
+                Console.ReadKey();
+                return;
+            }
+
+            if (to < from)
+            {
+                Console.WriteLine("Крайната дата трябва да е след началната.");
+                Console.ReadKey();
+                return;
+            }
+
+            try
+            {
+                var sales = saleService.GetSalesByPeriod(from, to);
+
+                if (!sales.Any())
+                {
+                    Console.WriteLine("Няма продажби за този период.");
+                    Console.ReadKey();
+                    return;
+                }
+
+                Console.WriteLine($"\nПродажби от {from:yyyy-MM-dd} до {to:yyyy-MM-dd}:\n");
+
+                foreach (var sale in sales)
+                {
+                    Console.WriteLine($"ID: {sale.Id} | Total: {sale.Total:C} | Date: {sale.Date:yyyy-MM-dd HH:mm}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.ReadKey();
+        }
+        private void RemovePromoCodeUI()
+        {
+            Console.Write("Продажба ID: ");
+            if (!int.TryParse(Console.ReadLine(), out int saleId))
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
+
+            try
+            {
+                saleService.RemovePromo(saleId);
+                Console.WriteLine("Промо кодът е премахнат.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.ReadKey();
+        }
+        private void CompleteSaleUI()
+        {
+            Console.Write("Продажба ID: ");
+            if (!int.TryParse(Console.ReadLine(), out int saleId))
+            {
+                Console.WriteLine("Невалидно ID.");
+
+                return;
+            }
+
+            Console.Write("Тип плащане (0=Cash, 1=Card): ");
+            if (!int.TryParse(Console.ReadLine(), out int type))
+            {
+                Console.WriteLine("Невалиден тип.");
+                return;
+            }
+
+            try
+            {
+                saleService.CompleteSale(saleId, (PaymentType)type);
+                Console.WriteLine("Продажбата е завършена.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.ReadKey();
+        }
+        private void ShowAllCategoriesUI()
+        {
+            var categories = categoryService.GetAllCategories();
+
+            foreach (var c in categories)
+                Console.WriteLine($"{c.Id} | {c.Name}");
+
+            Console.ReadKey();
+        }
+        private void DeleteCategoryUI()
+        {
+            Console.Write("Категория ID: ");
+            if (!int.TryParse(Console.ReadLine(), out int id))
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
+
+            try
+            {
+                categoryService.DeleteCategory(id);
+                Console.WriteLine("Категорията е изтрита.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.ReadKey();
+        }
+        private void GenerateReceiptUI()
+        {
+            Console.Write("Продажба ID: ");
+            string saleInput = Console.ReadLine()!;
+            if (!int.TryParse(saleInput, out int saleId) || saleId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
+
+            try
+            {
+                var receipt = saleService.GenerateReceipt(saleId);
+                Console.WriteLine(receipt);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.ReadKey();
+        }
+
+        private void ShowMostPurchasedProductsUI()
+        {
+            Console.Write("Колко топ продукта да покажем? (по подразбиране 10): ");
+            string input = Console.ReadLine();
+            int top = 10;
+            if (!string.IsNullOrWhiteSpace(input) && int.TryParse(input, out int parsed) && parsed > 0)
+                top = parsed;
+
+            try
+            {
+                var list = saleService.GetMostPurchasedProducts(top);
+                if (list == null || !list.Any())
+                {
+                    Console.WriteLine("Няма продажби или записи на продажби.");
+                    Console.ReadKey();
+                    return;
+                }
+
+                Console.WriteLine($"Топ {top} най-продавани продукти:");
+                foreach (var (product, qty) in list)
+                {
+                    Console.WriteLine($"{product.Id} | {product.Name} | Sold: {qty}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.ReadKey();
+        }
+
+        private void RemoveProductFromSaleUI()
+        {
+            Console.Write("Продажба ID: ");
+            string saleInput = Console.ReadLine()!;
+            if (!int.TryParse(saleInput, out int saleId) || saleId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
+
+            Console.Write("Продукт ID: ");
+            string prodInput = Console.ReadLine()!;
+            if (!int.TryParse(prodInput, out int productId) || productId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
+
+            try
+            {
+                saleService.RemoveProductFromSale(saleId, productId);
+                Console.WriteLine("Продуктът е премахнат от продажбата.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.ReadKey();
+        }
+
+        private void UpdateCategoryUI()
+        {
+            Console.Write("Категория ID: ");
+            string idInput = Console.ReadLine()!;
+            if (!int.TryParse(idInput, out int id) || id <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
+
+            Console.Write("Ново име на категория: ");
+            string newName = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(newName))
+            {
+                Console.WriteLine("Името не може да бъде празно.");
+                return;
+            }
+
+            try
+            {
+                categoryService.EditCategory(id, newName);
+                Console.WriteLine("Категорията е обновена.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.ReadKey();
+        }
+
+        private void AddQuantityOfProductUI()
+        {
+            Console.Write("Продукт ID: ");
+            string idInput = Console.ReadLine()!;
+            if (!int.TryParse(idInput, out int productId) || productId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
+
+            Console.Write("Количество за добавяне: ");
+            string qtyInput = Console.ReadLine()!;
+            if (!int.TryParse(qtyInput, out int qty) || qty <= 0)
+            {
+                Console.WriteLine("Невалидно количество.");
+                return;
+            }
+
+            try
+            {
+                productService.AddQuantityOfProduct(productId, qty);
+                Console.WriteLine("Наличното количество е обновено.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.ReadKey();
+        }
+
+        private void ChangeQuantityInSaleUI()
+        {
+            Console.Write("Продажба ID: ");
+            string saleInput = Console.ReadLine()!;
+            if (!int.TryParse(saleInput, out int saleId) || saleId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
+
+            Console.Write("Продукт ID: ");
+            string prodInput = Console.ReadLine()!;
+            if (!int.TryParse(prodInput, out int productId) || productId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                return;
+            }
+
+            Console.Write("Ново количество: ");
+            string qtyInput = Console.ReadLine()!;
+            if (!int.TryParse(qtyInput, out int newQty) || newQty <= 0)
+            {
+                Console.WriteLine("Невалидно количество.");
+                return;
+            }
+
+            try
+            {
+                var item = saleService.ChangeQuantityInSale(saleId, productId, newQty);
+                Console.WriteLine($"Количество обновено: {item.Quantity}, Нова обща цена: {item.LineTotal:C}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.ReadKey();
+        }
+
+        private void CalculateSaleUI()
+        {
+            Console.Write("Продажба ID: ");
+            string saleInput = Console.ReadLine()!;
+            if (!int.TryParse(saleInput, out int saleId) || saleId <= 0)
+            {
+                Console.WriteLine("Невалидно ID.");
+                Console.ReadKey();
+                return;
+            }
+
+            try
+            {
+                saleService.RecalculateSale(saleId);
+
+
+                var sale = saleService.GetSaleById(saleId);
+                if (sale == null)
+                {
+                    Console.WriteLine("Продажбата не е намерена.");
+                    Console.ReadKey();
+                    return;
+                }
+
+
+                Console.WriteLine($"Нова междинна сума: {sale.Subtotal:C}");
+                Console.WriteLine($"Нова отстъпка: {sale.DiscountAmount:C}");
+                Console.WriteLine($"Нова обща сума: {sale.Total:C}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Грешка: {ex.Message}");
+            }
+
+            Console.ReadKey();
+        }
+        private void AddCategoryUI()
+        {
+            Console.Write("Въведи име на категория: ");
+            string name = Console.ReadLine();
+
+            try
+            {
+                var category = categoryService.AddCategory(name);
+                Console.WriteLine($"Категорията е добавена успешно! ID: {category.Id}, Име: {category.Name}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Грешка: {ex.Message}");
+            }
+
+            Console.ReadKey();
         }
         private void AddProductUI()
         {
@@ -123,7 +525,7 @@ namespace StoreSalesSystem.ConsoleUI
             }
         }
 
-        private void ApplyPromoUI()
+        private void ApplyPromoCodeUI()
         {
             Console.Write("Продажба ID: ");
             string saleInput = Console.ReadLine()!;
@@ -152,7 +554,7 @@ namespace StoreSalesSystem.ConsoleUI
             }
         }
 
-        private void ViewSalesHistoryUI()
+        private void ShowSalesHistoryUI()
         {
             var sales = saleService.GetSalesHistory();
 
@@ -164,8 +566,9 @@ namespace StoreSalesSystem.ConsoleUI
 
             foreach (var sale in sales)
             {
-                Console.WriteLine($"{sale.Id} | Total: {sale.Total} | Date: {sale.Date}");
+                Console.WriteLine($"{sale.Id} | Обща сума: {sale.Total} | Дата: {sale.Date}");
             }
+            Console.ReadKey();
         }
 
         private void AddProductToSaleUI(SaleService saleService)
@@ -296,6 +699,7 @@ namespace StoreSalesSystem.ConsoleUI
 
             foreach (var p in results)
                 Console.WriteLine($"{p.Id} | {p.Name} | {p.Code} | {p.Price}");
+            Console.ReadKey();
         }
 
 
@@ -319,6 +723,7 @@ namespace StoreSalesSystem.ConsoleUI
 
             foreach (var p in products)
                 Console.WriteLine($"{p.Id} | {p.Name} | {p.Price}");
+            Console.ReadKey();
         }
 
         private void CheckStockUI()
@@ -331,7 +736,7 @@ namespace StoreSalesSystem.ConsoleUI
                 return;
             }
 
-            Console.Write("Quantity: ");
+            Console.Write("Количество: ");
             string qtyInput = Console.ReadLine()!;
             if (!int.TryParse(qtyInput, out int qty) || qty <= 0)
             {
@@ -342,8 +747,9 @@ namespace StoreSalesSystem.ConsoleUI
             bool hasStock = productService.HasStock(productId, qty);
 
             Console.WriteLine(hasStock ? "Има наличност." : "Няма достатъчно наличност.");
+            Console.ReadKey();
         }
-        private void AddPromoUI()
+        private void AddPromoCodeUI()
         {
             Console.Write("Промо код: ");
             string code = Console.ReadLine()!;
@@ -397,7 +803,7 @@ namespace StoreSalesSystem.ConsoleUI
         }
 
 
-        private void EditPromoUI()
+        private void EditPromoCodeUI()
         {
             Console.Write("Промо ID: ");
             string idInput = Console.ReadLine()!;
@@ -459,7 +865,7 @@ namespace StoreSalesSystem.ConsoleUI
         }
 
 
-        private void DeactivatePromoUI()
+        private void DeactivatePromoCodeUI()
         {
             Console.Write("Промо ID: ");
             string idInput = Console.ReadLine()!;
@@ -480,7 +886,7 @@ namespace StoreSalesSystem.ConsoleUI
             }
         }
 
-        private void CheckPromoValidityUI()
+        private void CheckPromoCodeValidityUI()
         {
             Console.Write("Промо код: ");
             string code = Console.ReadLine()!;
