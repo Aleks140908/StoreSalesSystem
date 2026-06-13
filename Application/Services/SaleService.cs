@@ -251,7 +251,7 @@ namespace StoreSalesSystem.Application.Services
 
             foreach (var item in items)
             {
-                var product = productRepo.GetById((int)item.ProductId);
+                var product = productRepo.GetById((int)item.ProductId!);
                 sb.AppendLine($"{item.Quantity} | {product?.Name} | {item.UnitPrice:C} | {item.LineTotal:C}");
             }
 
@@ -304,7 +304,7 @@ namespace StoreSalesSystem.Application.Services
                 .ToHashSet();
 
             var grouped = items
-                .Where(i => completedSaleIds.Contains((int)i.SaleId))
+                .Where(i => completedSaleIds.Contains((int)i.SaleId!))
                 .GroupBy(i => i.ProductId)
                 .Select(g => new { ProductId = g.Key, Quantity = g.Sum(i => i.Quantity) })
                 .OrderByDescending(x => x.Quantity)
@@ -314,7 +314,7 @@ namespace StoreSalesSystem.Application.Services
 
             foreach (var g in grouped)
             {
-                var product = productRepo.GetById((int)g.ProductId);
+                var product = productRepo.GetById((int)g.ProductId!);
                 if (product != null)
                     result.Add((product, g.Quantity));
             }
