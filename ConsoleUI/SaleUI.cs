@@ -263,7 +263,7 @@ namespace StoreSalesSystem.ConsoleUI
         private void ShowMostPurchasedProductsUI()
         {
             Console.Write("Колко топ продукта да покажем? (по подразбиране 10): ");
-            string input = Console.ReadLine();
+            string input = Console.ReadLine()!;
             int top = 10;
             if (!string.IsNullOrWhiteSpace(input) && int.TryParse(input, out int parsed) && parsed > 0)
                 top = parsed;
@@ -332,7 +332,7 @@ namespace StoreSalesSystem.ConsoleUI
             }
 
             Console.Write("Ново име на категория: ");
-            string newName = Console.ReadLine();
+            string newName = Console.ReadLine()!;
             if (string.IsNullOrWhiteSpace(newName))
             {
                 Console.WriteLine("Името не може да бъде празно.");
@@ -458,7 +458,7 @@ namespace StoreSalesSystem.ConsoleUI
         private void AddCategoryUI()
         {
             Console.Write("Въведи име на категория: ");
-            string name = Console.ReadLine();
+            string name = Console.ReadLine()!;
 
             try
             {
