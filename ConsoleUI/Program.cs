@@ -11,7 +11,7 @@ namespace StoreSalesSystem.ConsoleUI
     internal class Program
     {
         
-        static void Main(string[] args)
+        static void Main()
         {
             var storage = new FileStorage("Data/storage.json").Load();
             storage.Save();

@@ -168,11 +168,11 @@ namespace StoreSalesSystem.Application.Services
 
             var sale = saleRepo.GetById(saleId);
 
-            if (sale == null)
+            if (sale is not null)
 
                 throw new Exception("Продажбата не е намерена");
 
-            if (sale.IsCompleted)
+            if (sale!.IsCompleted)
                 throw new Exception("Не може да се модифицира завършена продажба");
 
             if (quantity <= 0)
@@ -215,7 +215,7 @@ namespace StoreSalesSystem.Application.Services
         public void CompleteSale(int saleId, PaymentType paymentType)
         {
             var sale = saleRepo.GetById(saleId);
-                if(sale == null){
+                if(sale == null!){
                     throw new Exception("Продажбата не е намерена");
                 }
 
@@ -269,24 +269,24 @@ namespace StoreSalesSystem.Application.Services
         public void RemoveProductFromSale(int saleId, int productId)
         {
             var sale = saleRepo.GetById(saleId);
-                if(sale == null){
+                if(sale is not null){
                     throw new Exception("Продажбата не е намерена");
                 }
 
-            if (sale.IsCompleted)
+            if (sale!.IsCompleted)
                 throw new Exception("Не може да се променя завършена продажба");
 
             var item = saleItemRepo.GetBySaleId(saleId)
                 .FirstOrDefault(i => i.ProductId == productId);
-                if(item == null){
+                if(item is not null){
                     throw new Exception("Продуктът не е намерен в продажбата");
                 }
             var product = productRepo.GetById(productId);
-                if(product == null){
+                if(product is not null){
                     throw new Exception("Продуктът не е намерен");
                 }
 
-            product.IncreaseStock(item.Quantity);
+            product!.IncreaseStock(item!.Quantity);
             productRepo.Update(product);
 
             saleItemRepo.Delete(item.Id);

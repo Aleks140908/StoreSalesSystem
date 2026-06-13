@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreSalesSystem", "StoreSa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaleSystemUI", "..\SaleSystemUI\SaleSystemUI.csproj", "{F43B5C93-C1CD-4391-9013-006CCAE6C84C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreSaleTest", "..\StoreSaleTest\StoreSaleTest.csproj", "{5DCF9111-EC2D-4BE7-B051-054F4DB57209}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F43B5C93-C1CD-4391-9013-006CCAE6C84C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F43B5C93-C1CD-4391-9013-006CCAE6C84C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F43B5C93-C1CD-4391-9013-006CCAE6C84C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DCF9111-EC2D-4BE7-B051-054F4DB57209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DCF9111-EC2D-4BE7-B051-054F4DB57209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DCF9111-EC2D-4BE7-B051-054F4DB57209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DCF9111-EC2D-4BE7-B051-054F4DB57209}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
